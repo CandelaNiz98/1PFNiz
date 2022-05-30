@@ -1,0 +1,78 @@
+<div class="container bg-div">
+  <mat-toolbar class="toolbar-container" >
+    <p appFuentes class="text-white"></p>   
+    <div class="example-spacer"></div>
+    <span class="example-spacer"></span>
+
+  <button class="my-2 mx-3 boton" mat-raised-button  (click)="ingresarAdmin()" appFuentes>Administrador</button>
+  
+   <span class="example-spacer"></span>
+  
+ <button class="my-2 mx-3 boton" mat-raised-button  (click)="ingresarUsuario()" appFuentes>Estudiante</button> 
+  
+  <span class="example-spacer"></span>
+    <button *ngIf="admin" mat-raised-button class=" boton"  routerLink="/dashboard/crear-estudiante" appFuentes>Agregar Estudiante</button>
+  </mat-toolbar>
+
+  <div *ngIf="listaEstudiantes.length > 0" class="mt-5 ">
+    <!--<mat-form-field appearance="fill" class="barra-filtrar fs-6 text-white">
+      <mat-label class="text-white">Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input autocomplete="off">
+    </mat-form-field>-->
+  
+    <div class="mat-elevation-z8 mt-4 ">
+      <table class=" text-white bg-tabla"  mat-table [dataSource]="dataSource" matSort>
+  
+        <!-- Nombre y apellido -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef class="fs-5 text-white" appFuentes> Estudiante </th>
+          <td class="text-white" mat-cell *matCellDef="let element">{{element.nombre}} {{element.apellido}} </td>
+        </ng-container>
+  
+        <!-- curso -->
+        <ng-container matColumnDef="curso">
+          <th mat-header-cell *matHeaderCellDef class="fs-5 text-white" mat-sort-header appFuentes> Curso </th>
+          <td class="text-white" mat-cell *matCellDef="let element"> {{element.curso}} </td>
+        </ng-container>
+  
+        <!-- Nota -->
+        <ng-container matColumnDef="nota">
+          <th mat-header-cell *matHeaderCellDef class="fs-5 text-white" mat-sort-header appFuentes> Nota </th>
+          <td class="text-white" mat-cell *matCellDef="let element"> {{element.nota}} </td>
+        </ng-container>
+  
+        <!-- Profesor -->
+        <ng-container matColumnDef="profesor">
+          <th mat-header-cell *matHeaderCellDef class="fs-5 text-white" appFuentes> Profesor </th>
+          <td class="text-white" mat-cell *matCellDef="let element"> {{element.profesor}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="acciones" >
+          <th  mat-header-cell *matHeaderCellDef class="fs-5 text-white" style="text-align: right ;" appFuentes>
+            Acciones </th>
+          <td mat-cell *matCellDef="let element; let i = index" style="text-align: right ;">
+
+            <a *ngIf="admin" class="pointer mx-2" style="color: black" routerLink="/dashboard/crear-estudiante" (click)="editarEstudiante(i)">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a *ngIf="admin" class="pointer mx-2" (click)="eliminarEstudiante(i)" style="color: rgb(170, 24, 24)">
+              <mat-icon>delete</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator class="bg-tabla text-white fs-5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+  
+    </div>
+
+  </div>
+  <div  *ngIf="listaEstudiantes.length == 0">
+    <h2 class="text-white">No existen registros para mostrar</h2>
+  </div>
+
+
+</div>
